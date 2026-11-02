@@ -1057,3 +1057,47 @@ body {
   padding: 1rem;
 }
 
+/* ── Botón "Volver a hoy" ── */
+.carta-back-today {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.65rem 1.2rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, rgba(157,78,221,0.2), rgba(224,64,251,0.15));
+  border: 1px solid rgba(180,111,255,0.4);
+  border-radius: 12px;
+  color: var(--clr-lavender);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: var(--transition);
+  animation: carta-appear 0.3s ease both;
+}
+
+.carta-back-today:hover {
+  background: linear-gradient(135deg, rgba(157,78,221,0.35), rgba(224,64,251,0.25));
+  border-color: var(--clr-purple-1);
+  color: var(--clr-text);
+  box-shadow: 0 0 20px rgba(180,111,255,0.2);
+  transform: translateY(-1px);
+}
+
+.carta-back-today:active {
+  transform: translateY(0);
+}
+
+/* ── Item activo del historial ── */
+.carta-history-item.active {
+  border-color: var(--clr-purple-2);
+  background: linear-gradient(135deg, rgba(157,78,221,0.15), rgba(224,64,251,0.08));
+}
+
+.carta-history-item.active .carta-history-date {
+  color: var(--clr-lavender);
+}
+

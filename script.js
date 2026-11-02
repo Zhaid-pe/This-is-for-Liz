@@ -248,21 +248,21 @@ function formatDateKey(key) {
   });
 }
 
-/** Renderiza la carta del día actual */
-function renderCartaDia() {
+/** Muestra la carta de hoy en el panel principal */
+function mostrarCartaHoy() {
   const todayKey = getTodayKey();
   const carta = CARTAS[todayKey];
-
-  // Mostrar fecha en el header
-  const dateLabel = document.getElementById("carta-date-label");
-  if (dateLabel) {
-    dateLabel.textContent = formatDateKey(todayKey);
-  }
 
   const display = document.getElementById("carta-display");
   const empty = document.getElementById("carta-empty");
   const textEl = document.getElementById("carta-text");
   const firmaEl = document.getElementById("carta-firma");
+  const labelEl = document.getElementById("carta-paper-label");
+  const dateLabel = document.getElementById("carta-date-label");
+  const backBtn = document.getElementById("carta-back-today");
+
+  if (dateLabel) dateLabel.textContent = formatDateKey(todayKey);
+  if (labelEl) labelEl.textContent = "Para ti, hoy";
 
   if (carta) {
     display.classList.remove("hidden");
@@ -274,6 +274,26 @@ function renderCartaDia() {
     empty.classList.remove("hidden");
   }
 
+  // Ocultar el botón de volver cuando ya estamos en hoy
+  if (backBtn) backBtn.classList.add("hidden");
+
+  // Quitar resaltado de cualquier item del historial
+  document.querySelectorAll(".carta-history-item").forEach(el => el.classList.remove("active"));
+
+  document.getElementById("modal-carta-win").scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/** Renderiza la carta del día actual */
+function renderCartaDia() {
+  const todayKey = getTodayKey();
+
+  // Mostrar fecha en el header
+  const dateLabel = document.getElementById("carta-date-label");
+  if (dateLabel) {
+    dateLabel.textContent = formatDateKey(todayKey);
+  }
+
+  mostrarCartaHoy();
   renderCartaHistory(todayKey);
 }
 
@@ -314,6 +334,7 @@ function renderCartaHistory(todayKey) {
       const display = document.getElementById("carta-display");
       const empty = document.getElementById("carta-empty");
       const dateLabel = document.getElementById("carta-date-label");
+      const backBtn = document.getElementById("carta-back-today");
 
       display.classList.remove("hidden");
       empty.classList.add("hidden");
@@ -321,6 +342,13 @@ function renderCartaHistory(todayKey) {
       firmaEl.textContent = carta.firma || "— Con todo mi cariño 💜";
       labelEl.textContent = formatDateKey(key);
       if (dateLabel) dateLabel.textContent = formatDateKey(key);
+
+      // Mostrar el botón de volver a hoy
+      if (backBtn) backBtn.classList.remove("hidden");
+
+      // Resaltar el item seleccionado
+      document.querySelectorAll(".carta-history-item").forEach(el => el.classList.remove("active"));
+      item.classList.add("active");
 
       // Scroll al inicio del modal
       document.getElementById("modal-carta-win").scrollTo({ top: 0, behavior: "smooth" });
