@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>This is for Liz 💜</title>
+  <meta name="description"
+    content="Una página especial dedicada a ti, para recordar todo lo que hemos vivido juntos." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=Dancing+Script:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ✨ Partículas flotantes de fondo -->
+  <div class="particles" id="particles"></div>
+
+  <!-- 🌸 Pantalla Principal -->
+  <main class="hero" id="hero">
+
+    <!-- Encabezado con navegación de pestañas -->
+    <header class="site-header" id="site-header">
+      <div class="logo">💜 This is for Liz</div>
+      <nav class="tab-nav" id="tab-nav" aria-label="Navegación principal">
+        <button class="tab-btn" id="btn-why" onclick="openModal('modal-why')" aria-haspopup="dialog">
+          <span class="tab-icon">🌸</span>
+          <span class="tab-label">¿Por qué me gustas tanto?</span>
+        </button>
+        <button class="tab-btn" id="btn-unsaid" onclick="openModal('modal-unsaid')" aria-haspopup="dialog">
+          <span class="tab-icon">✉️</span>
+          <span class="tab-label">Cosas que aún no te dije</span>
+        </button>
+        <button class="tab-btn" id="btn-memories" onclick="openModal('modal-memories')" aria-haspopup="dialog">
+          <span class="tab-icon">📸</span>
+          <span class="tab-label">Nuestros recuerdos</span>
+        </button>
+        <button class="tab-btn tab-btn--carta" id="btn-carta" onclick="openModal('modal-carta')" aria-haspopup="dialog">
+          <span class="tab-icon">💌</span>
+          <span class="tab-label">Carta del día</span>
+          <span class="carta-badge" id="carta-badge">HOY</span>
+        </button>
+      </nav>
+    </header>
+
+    <!-- Contenido principal del hero -->
+    <section class="hero-content" id="hero-content">
+      <div class="hero-badge">💜 Me has hecho muy feliz desde que te conocí</div>
+
+      <h1 class="hero-title">
+        <span class="title-line">Buen dia,</span>
+        <span class="title-name" id="hero-name">bonita</span>
+      </h1>
+
+      <p class="hero-subtitle" id="hero-subtitle">
+        Desde que apareciste en mi vida, todo cambió.<br />
+        Esta página es para recordarte lo mucho que me gustas y confesarte lo que no me atrevo a decirte.
+      </p>
+
+      <!-- Contador de tiempo juntos -->
+      <div class="time-counter" id="time-counter">
+        <div class="counter-item">
+          <span class="counter-number" id="counter-days">0</span>
+          <span class="counter-label">días</span>
+        </div>
+        <div class="counter-divider">·</div>
+        <div class="counter-item">
+          <span class="counter-number" id="counter-hours">0</span>
+          <span class="counter-label">horas</span>
+        </div>
+        <div class="counter-divider">·</div>
+        <div class="counter-item">
+          <span class="counter-number" id="counter-minutes">0</span>
+          <span class="counter-label">minutos</span>
+        </div>
+      </div>
+      <p class="counter-caption">de haberme alegrado la vida 💜</p>
+
+      <!-- Tarjetas de experiencias en la pantalla principal -->
+      <div class="experience-cards" id="experience-cards">
+
+        <!-- ── Tarjeta 1: agrega tu foto en src="" ── -->
+        <article class="exp-card" id="card-1">
+          <div class="card-media" id="card-media-1">
+            <!-- imagen: imagenes/primer_mensaje.jpeg -->
+            <img class="card-photo" id="card-photo-1" src="imagenes/primer_mensaje.jpeg" alt="El día que te conocí"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+              onload="this.style.display='block'; this.nextElementSibling.style.display='none'" />
+            <div class="card-photo-placeholder" id="card-placeholder-1">
+              <span class="placeholder-icon">🌟</span>
+            </div>
+            <div class="card-media-overlay"></div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">El día que te conocí</h3>
+            <p class="card-text">En verdad tenia muchas ganas de conocerte y saber de tí, estaba nervioso hasta los
+              huesos; pero cada que hablaba contigo me enamoraba más de ti.</p>
+          </div>
+        </article>
+
+        <!-- ── Tarjeta 2: agrega tu foto en src="" ── -->
+        <article class="exp-card" id="card-2">
+          <div class="card-media" id="card-media-2">
+            <img class="card-photo" id="card-photo-2" src="imagenes/votaciones_dia.jpeg" alt="Momentos contigo"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+              onload="this.style.display='block'; this.nextElementSibling.style.display='none'" />
+            <div class="card-photo-placeholder" id="card-placeholder-2">
+              <span class="placeholder-icon">☕</span>
+            </div>
+            <div class="card-media-overlay"></div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Momentos contigo</h3>
+            <p class="card-text">Siempre me quedaban cortos mis dias, pero hacia tiempo de donde no habia porque en
+              verdad me gustas, me alegras los dias y cada momento que paso contigo es especial.
+              Me alegraba saber que saliendo del trabajo te iba a poder ver la cara bonita que tiene esos ojazos tan
+              hermosos que me hacen olvidarme de todo la mierda que pasé en el dia.
+            </p>
+          </div>
+        </article>
+
+        <!-- ── Tarjeta 3: agrega tu foto en src="" ── -->
+        <article class="exp-card" id="card-3">
+          <div class="card-media" id="card-media-3">
+            <img class="card-photo" id="card-photo-3" src="imagenes/bonita_captada_en_camara_durmiendo.jpeg"
+              alt="Lo que me haces sentir"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+              onload="this.style.display='block'; this.nextElementSibling.style.display='none'" />
+            <div class="card-photo-placeholder" id="card-placeholder-3">
+              <span class="placeholder-icon">🎶</span>
+            </div>
+            <div class="card-media-overlay"></div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Lo que me haces sentir</h3>
+            <p class="card-text">Salir contigo se siente tan bien, como te dije considero que somos un match perfecto y
+              tú sabes eso. Cada que te veo me mueves el corazón y siento que mis emociones explotaran, en verdad me
+              tienes profundamente enamorado</p>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Botón de explorar -->
+      <button class="cta-btn" id="cta-btn" onclick="openModal('modal-why')">
+        <span>Descúbrelo todo</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </button>
+    </section>
+
+    <!-- Flores decorativas flotantes -->
+    <div class="floating-flowers" aria-hidden="true">
+      <span class="flower f1">🌸</span>
+      <span class="flower f2">✨</span>
+      <span class="flower f3">💜</span>
+      <span class="flower f4">🌺</span>
+      <span class="flower f5">⭐</span>
+      <span class="flower f6">🌸</span>
+      <span class="flower f7">💫</span>
+    </div>
+  </main>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- MODAL 1: ¿Por qué me gustas tanto?         -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="modal-overlay" id="modal-why" role="dialog" aria-modal="true" aria-labelledby="modal-why-title"
+    onclick="closeModalOnOverlay(event, 'modal-why')">
+    <div class="modal-window" id="modal-why-win">
+      <button class="modal-close" onclick="closeModal('modal-why')" aria-label="Cerrar ventana">✕</button>
+      <div class="modal-header">
+        <span class="modal-icon">🌸</span>
+        <h2 class="modal-title" id="modal-why-title">¿Por qué me gustas tanto?</h2>
+      </div>
+      <div class="modal-body" id="modal-why-body">
+        <!-- Aquí irá el contenido personalizado -->
+        <p class="modal-intro">Como siempre te dije razones me sobran, voy a intentar escribir algunas...</p>
+
+        <div class="reason-list" id="reason-list">
+          <div class="reason-item" id="reason-1">
+            <span class="reason-num">01</span>
+            <div class="reason-text">
+              <h4>Eres tan "Ay"</h4>
+              <p>Tu forma de ser tan unica hizo que me enamorara de ti, tus gestos, tu sonrisa, tu forma de hablar, ...,
+                en verdad me tienes completamente idiota.</p>
+            </div>
+          </div>
+          <div class="reason-item" id="reason-2">
+            <span class="reason-num">02</span>
+            <div class="reason-text">
+              <h4>Tus ojos</h4>
+              <p>Cada vez que te veo se me ilumina el rostro, y eso lo has notado. El poder verte eso ojos me llena el
+                corazón el como me mirabas me hacia ponerme nervioso y feliz ksksk</p>
+            </div>
+          </div>
+          <div class="reason-item" id="reason-3">
+            <span class="reason-num">03</span>
+            <div class="reason-text">
+              <h4>Tu sonrisa</h4>
+              <p>Cada vez que te veia sonreir me movias por dentro. En verdad, no te haces una idea de lo hermosa que te
+                ves sonriendo
+              </p>
+            </div>
+          </div>
+          <div class="reason-item" id="reason-4">
+            <span class="reason-num">04</span>
+            <div class="reason-text">
+              <h4>Tu forma de hablar</h4>
+              <p>Me alegra tanto que cuando hablamos no es como la charla tipica y aburrida que se tiene siempre,
+                contigo hasta hablar de traumas llega a ser divertido sksksksk</p>
+            </div>
+          </div>
+          <div class="reason-item" id="reason-5">
+            <span class="reason-num">05</span>
+            <div class="reason-text">
+              <h4>Tu forma de besar</h4>
+              <p>Te prometo que nadie me habia besado como lo haces tú, al principio fue raro pero no por malo sino por
+                novedad, pero me gusto mucho ksksk; desde sentir tus labios hasta el escucharte respirar con algo de
+                dificultad, te prometo que es muy bonito recordarlo ksksk</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- MODAL 2: Cosas que aún no te dije          -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="modal-overlay" id="modal-unsaid" role="dialog" aria-modal="true" aria-labelledby="modal-unsaid-title"
+    onclick="closeModalOnOverlay(event, 'modal-unsaid')">
+    <div class="modal-window" id="modal-unsaid-win">
+      <button class="modal-close" onclick="closeModal('modal-unsaid')" aria-label="Cerrar ventana">✕</button>
+      <div class="modal-header">
+        <span class="modal-icon">✉️</span>
+        <h2 class="modal-title" id="modal-unsaid-title">Cosas que aún no te dije</h2>
+      </div>
+      <div class="modal-body" id="modal-unsaid-body">
+        <p class="modal-intro">Hay cosas que quise decirte pero no encontré el momento...</p>
+
+        <div class="letter-container" id="letter-container">
+          <div class="letter" id="letter-1">
+            <p class="letter-text">
+              "Me tragué el rogarte que te quedes a mi lado, porque en verdad te quiero lo suficiente como para respetar
+              lo que decidas aunque me duela. Quiero que seas feliz y me gustaria que eso fuera a mi lado, si es que me
+              eliges te prometo hacerte feliz cada dia y darte el afecto, cariño, respeto y todo lo que te mereces.
+              Y si no es asi, espero que encuentres eso que buscas y seas feliz. Nunca me arrepentiré de haberte
+              conocido
+              y de haberte querido con todo mi ser. Te quiero mucho, mucho, mucho, en verdad no te haces una idea cuanto
+              me gustas; estoy llorando mientras escribo esto porque me cuesta y duele el pensar que puede que no me
+              elijas. Cuando hablamos de todo esto no podia dormir bien, y cuando dormi tuve una pesadilla, habia soñado
+              que no me elegias a mí y te prometo que me desperté con lagrimas en los ojos. Pero como ya te habia dicho
+              sea lo que sea que elijas yo estaré bien con eso
+            </p>
+            <span class="letter-sig">— Te quiero con el alma 💜</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- MODAL 3: Nuestros recuerdos                -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="modal-overlay" id="modal-memories" role="dialog" aria-modal="true" aria-labelledby="modal-memories-title"
+    onclick="closeModalOnOverlay(event, 'modal-memories')">
+    <div class="modal-window" id="modal-memories-win">
+      <button class="modal-close" onclick="closeModal('modal-memories')" aria-label="Cerrar ventana">✕</button>
+      <div class="modal-header">
+        <span class="modal-icon">📸</span>
+        <h2 class="modal-title" id="modal-memories-title">Nuestros recuerdos</h2>
+      </div>
+      <div class="modal-body" id="modal-memories-body">
+        <p class="modal-intro">Te dije que no soy mucho de tomar fotos, pero acá puse algunos momentos que los guardo en
+          mi corazón...</p>
+
+        <div class="memories-grid" id="memories-grid">
+
+          <!-- ── Recuerdo 1: pon tu foto en src="" y el pie en data-caption="" ── -->
+          <div class="memory-card" id="memory-1">
+            <img class="memory-photo" id="memory-photo-1" src="imagenes/flores_1.jpeg" alt="Recuerdo 1"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+              onload="this.style.display='block'; this.nextElementSibling.style.display='none'" />
+            <div class="memory-placeholder" id="memory-placeholder-1">
+              <span>🌸</span>
+              <p>Recuerdo 1</p>
+              <small>Pon la ruta de tu foto en src=""</small>
+            </div>
+            <div class="memory-caption" id="memory-caption-1">Es medio loco recordar que las 2 semanas de conocerte ya
+              queria darte flores ksksksks</div>
+          </div>
+
+          <!-- ── Recuerdo 2 ── -->
+          <div class="memory-card" id="memory-2">
+            <img class="memory-photo" id="memory-photo-2" src="imagenes/flores_2.jpeg" alt="Recuerdo 2"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+              onload="this.style.display='block'; this.nextElementSibling.style.display='none'" />
+            <div class="memory-placeholder" id="memory-placeholder-2">
+              <span>✨</span>
+              <p>Recuerdo 2</p>
+              <small>Pon la ruta de tu foto en src=""</small>
+            </div>
+            <div class="memory-caption" id="memory-caption-2">Lirios para mi delirio XD, frase quemada, no puede ser
+            </div>
+          </div>
+
+          <!-- ── Recuerdo 3 ── -->
+          <div class="memory-card" id="memory-3">
+            <img class="memory-photo" id="memory-photo-3" src="imagenes/votaciones_dia.jpeg" alt="Recuerdo 3"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+              onload="this.style.display='block'; this.nextElementSibling.style.display='none'" />
+            <div class="memory-placeholder" id="memory-placeholder-3">
+              <span>💜</span>
+              <p>Recuerdo 3</p>
+              <small>Pon la ruta de tu foto en src=""</small>
+            </div>
+            <div class="memory-caption" id="memory-caption-3">El dia de las votaciones, me encanto el poder haber estado
+              al menos unas horas contigo</div>
+          </div>
+
+          <!-- ── Recuerdo 4 ── -->
+          <div class="memory-card" id="memory-4">
+            <img class="memory-photo" id="memory-photo-4" src="imagenes/bonita_captada_en_camara_durmiendo.jpeg"
+              alt="Recuerdo 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+              onload="this.style.display='block'; this.nextElementSibling.style.display='none'" />
+            <div class="memory-placeholder" id="memory-placeholder-4">
+              <span>🌺</span>
+              <p>Recuerdo 4</p>
+              <small>Pon la ruta de tu foto en src=""</small>
+            </div>
+            <div class="memory-caption" id="memory-caption-4">Fue hermoso haber pasado toda una tarde contigo, me
+              llenaste el corazón</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- MODAL 4: Carta del día                     -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="modal-overlay" id="modal-carta" role="dialog" aria-modal="true" aria-labelledby="modal-carta-title"
+    onclick="closeModalOnOverlay(event, 'modal-carta')">
+    <div class="modal-window modal-window--carta" id="modal-carta-win">
+      <button class="modal-close" onclick="closeModal('modal-carta')" aria-label="Cerrar ventana">✕</button>
+
+      <div class="modal-header">
+        <span class="modal-icon">💌</span>
+        <div>
+          <h2 class="modal-title" id="modal-carta-title">Carta del día</h2>
+          <p class="carta-date" id="carta-date-label">Cargando fecha...</p>
+        </div>
+      </div>
+
+      <div class="modal-body" id="modal-carta-body">
+
+        <!-- Carta actual -->
+        <div class="carta-display" id="carta-display">
+          <div class="carta-paper" id="carta-paper">
+            <div class="carta-paper-header">
+              <span class="carta-paper-icon">💜</span>
+              <span class="carta-paper-label" id="carta-paper-label">Para ti, hoy</span>
+            </div>
+            <div class="carta-text" id="carta-text">
+              <!-- El contenido se inyecta desde script.js -->
+            </div>
+            <div class="carta-firma" id="carta-firma">— Con todo mi cariño 💜</div>
+          </div>
+        </div>
+
+        <!-- Sin carta para hoy -->
+        <div class="carta-empty hidden" id="carta-empty">
+          <span class="carta-empty-icon">📭</span>
+          <p>Aún no hay carta para hoy...</p>
+          <small>Vuelve pronto 💜</small>
+        </div>
+
+        <!-- Separador -->
+        <div class="carta-divider">
+          <span>✦</span>
+        </div>
+
+        <!-- Contador para la siguiente carta -->
+        <div class="carta-next" id="carta-next">
+          <p class="carta-next-label">Próxima carta en</p>
+          <div class="carta-countdown" id="carta-countdown">
+            <div class="cd-item">
+              <span class="cd-num" id="cd-hours">00</span>
+              <span class="cd-label">horas</span>
+            </div>
+            <span class="cd-sep">:</span>
+            <div class="cd-item">
+              <span class="cd-num" id="cd-mins">00</span>
+              <span class="cd-label">min</span>
+            </div>
+            <span class="cd-sep">:</span>
+            <div class="cd-item">
+              <span class="cd-num" id="cd-secs">00</span>
+              <span class="cd-label">seg</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Historial de cartas pasadas -->
+        <div class="carta-history" id="carta-history">
+          <h3 class="carta-history-title">📚 Cartas anteriores</h3>
+          <div class="carta-history-list" id="carta-history-list">
+            <!-- Se genera dinámicamente -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
