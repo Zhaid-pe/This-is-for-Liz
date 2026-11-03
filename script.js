@@ -205,6 +205,13 @@ const CARTAS = {
   // ── Agrega tus cartas aquí ──────────────────────────────────
   // La fecha de hoy (para demo, muestra el ejemplo):
   [getTodayKey()]: {
+    texto: `Buen dia, bonita 💜
+
+  Como te dije por acá te escribiré todo lo que sentí del dia, q decir ksksksksk. Me has dado el mejor beso de mi vida, me has dado la esperanza de que podamos volver a estar juntos, y sobre todo por fin me has hecho saber que en verdad quieres estar conmigo más adelante, y el unico condicional es que estes más estable. No sabes cuanto me ilusiono eso, con decirte que tengo una sonrisa de idiota hasta ahora. Hoy como te dije no siento que te haya hablado todo lo que me gustaria y no sé como haré para aguantarme las ganas de escribirte, lo más probable es que te siga escribiendo pero sin escribirte; me entiendes?, con esto quiero decir que te voy a estar escribiendo bastante por acá en los otros apartados como en razones por las cuales me gustas o en cosas que no te dije. Mis manos todavia huelen un poquito a ti en lo que escribo esto y no sabes lo mucho que me gustaria tenerte cerca mientras te abrazo, te  como la boca o hablamos de cualquier cosa, porque hasta hablando de que nos vamos a alejar nos reimos DKSJDKSK, no sé, me parece interesante que hablar contigo hasta de un tema que me duele me pueda reir xd. Espero te estes sintiendo igual de bien que yo a comparación de ayer o el resto de los dias, porque por fin siento que no hay incertidumbre.`,
+    firma: "— De loquito, para bonita 💜",
+  },
+  // ── Ejemplos de cartas pasadas ──────────────────────────────
+  "2026-11-02": {
     texto: `Buenos dias, bonita 💜
 
 Hoy fue raro todo, desde despertar hasta estar libre, intento no escribirte para darte 
@@ -215,12 +222,7 @@ continuar, espero te guste esto, y que cada dia te pases por acá para ver la ca
 Gracias por existir y por ser como eres.`,
     firma: "— De loquito, para bonita 💜",
   },
-  // ── Ejemplos de cartas pasadas ──────────────────────────────
   "2026-11-01": {
-    texto: `...`,
-    firma: "— ...",
-  },
-  "2026-10-31": {
     texto: `:C`,
     firma: "— ...",
   },
