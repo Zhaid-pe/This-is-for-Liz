@@ -54,6 +54,11 @@ function openModal(id) {
   document.body.style.overflow = "hidden";
   currentModal = id;
 
+  if (id === "modal-carta") {
+    renderCartaDia();
+    startCartaCountdown();
+  }
+
   // Accesibilidad: focus en el modal
   const win = overlay.querySelector(".modal-window");
   if (win) win.focus();
@@ -190,34 +195,23 @@ document.querySelectorAll(".modal-overlay").forEach((overlay) => {
 });
 
 /* ══════════════════════════════════════════
-   CARTA DEL DÍA — Sistema de cartas diarias
-   ══════════════════════════════════════════
+   CARTA DEL DÍA — Base de Datos (Supabase)
+   ══════════════════════════════════════════ */
+const SUPABASE_URL = "https://kvzkkdtgvkavwofflmcq.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_ZhosuwnZN-IlykNJg9KvLQ_Ra6hIICa";
 
-   Cómo agregar cartas:
-   Usa el formato  "YYYY-MM-DD": { texto, firma }
-   Ejemplo:
-     "2024-11-03": {
-       texto: "Hoy pensé mucho en ti...",
-       firma: "— Con amor 💜"
-     },
-══════════════════════════════════════════ */
-const CARTAS = {
-  // ── Agrega tus cartas aquí ──────────────────────────────────
-  // La fecha de hoy (para demo, muestra el ejemplo):
-  [getTodayKey()]: {
+// Diccionario de cartas en memoria (inicia con respaldo local)
+let CARTAS = {
+  "2026-11-03": {
     texto: `Buen dia, bonita 💜
 
-  Como te dije por acá te escribiré todo lo que sentí del dia, q decir ksksksksk. Me has dado el mejor beso de mi vida, me has dado la esperanza de que podamos volver a estar juntos, y sobre todo por fin me has hecho saber que en verdad quieres estar conmigo más adelante, y el unico condicional es que estes más estable. No sabes cuanto me ilusiono eso, con decirte que tengo una sonrisa de idiota hasta ahora. Hoy como te dije no siento que te haya hablado todo lo que me gustaria y no sé como haré para aguantarme las ganas de escribirte, lo más probable es que te siga escribiendo pero sin escribirte; me entiendes?, con esto quiero decir que te voy a estar escribiendo bastante por acá en los otros apartados como en razones por las cuales me gustas o en cosas que no te dije. Mis manos todavia huelen un poquito a ti en lo que escribo esto y no sabes lo mucho que me gustaria tenerte cerca mientras te abrazo, te  como la boca o hablamos de cualquier cosa, porque hasta hablando de que nos vamos a alejar nos reimos DKSJDKSK, no sé, me parece interesante que hablar contigo hasta de un tema que me duele me pueda reir xd. Espero te estes sintiendo igual de bien que yo a comparación de ayer o el resto de los dias, porque por fin siento que no hay incertidumbre.`,
+Como te dije por acá te escribiré todo lo que sentí del dia, q decir ksksksksk. Me has dado el mejor beso de mi vida, me has dado la esperanza de que podamos volver a estar juntos, y sobre todo por fin me has hecho saber que en verdad quieres estar conmigo más adelante, y el unico condicional es que estes más estable. No sabes cuanto me ilusiono eso, con decirte que tengo una sonrisa de idiota hasta ahora. Hoy como te dije no siento que te haya hablado todo lo que me gustaria y no sé como haré para aguantarme las ganas de escribirte, lo más probable es que te siga escribiendo pero sin escribirte; me entiendes?, con esto quiero decir que te voy a estar escribiendo bastante por acá en los otros apartados como en razones por las cuales me gustas o en cosas que no te dije. Mis manos todavia huelen un poquito a ti en lo que escribo esto y no sabes lo mucho que me gustaria tenerte cerca mientras te abrazo, te  como la boca o hablamos de cualquier cosa, porque hasta hablando de que nos vamos a alejar nos reimos DKSJDKSK, no sé, me parece interesante que hablar contigo hasta de un tema que me duele me pueda reir xd. Espero te estes sintiendo igual de bien que yo a comparación de ayer o el resto de los dias, porque por fin siento que no hay incertidumbre.`,
     firma: "— De loquito, para bonita 💜",
   },
-  // ── Ejemplos de cartas pasadas ──────────────────────────────
   "2026-11-02": {
     texto: `Buenos dias, bonita 💜
 
-Hoy fue raro todo, desde despertar hasta estar libre, intento no escribirte para darte 
-espacio para pensar pero se me es muy complicado. Así que decidí ponerme a codear esta
-página para sentir como si estuviara cerca tuyo, para recordarte porque valdria la pena
-continuar, espero te guste esto, y que cada dia te pases por acá para ver la carta nueva jeje
+Hoy fue raro todo, desde despertar hasta estar libre, intento no escribirte para darte espacio para pensar pero se me es muy complicado. Así que decidí ponerme a codear esta página para sentir como si estuviara cerca tuyo, para recordarte porque valdria la pena continuar, espero te guste esto, y que cada dia te pases por acá para ver la carta nueva jeje
 
 Gracias por existir y por ser como eres.`,
     firma: "— De loquito, para bonita 💜",
@@ -226,8 +220,56 @@ Gracias por existir y por ser como eres.`,
     texto: `:C`,
     firma: "— ...",
   },
-  // ────────────────────────────────────────────────────────────
 };
+
+let cartasCargadas = false;
+
+/** Descarga las cartas desde la base de datos de Supabase */
+async function cargarCartasDesdeSupabase() {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/cartas?select=*&order=fecha.desc`, {
+      headers: {
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`
+      }
+    });
+
+    if (!res.ok) {
+      console.warn("No se pudo conectar a Supabase. Se utilizarán las cartas locales.");
+      return;
+    }
+
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0) {
+      const mapa = {};
+      data.forEach((item) => {
+        if (item.fecha && item.texto) {
+          mapa[item.fecha] = {
+            texto: item.texto,
+            firma: item.firma || "— De loquito, para bonita 💜"
+          };
+        }
+      });
+
+      // Combinamos con las cartas existentes, teniendo prioridad las de Supabase
+      CARTAS = { ...CARTAS, ...mapa };
+      cartasCargadas = true;
+
+      // Si el modal de la carta está abierto en este momento, actualizamos la vista
+      const modal = document.getElementById("modal-carta");
+      if (modal && modal.classList.contains("active")) {
+        const todayKey = getTodayKey();
+        mostrarCartaHoy();
+        renderCartaHistory(todayKey);
+      }
+    }
+  } catch (err) {
+    console.warn("Error al consultar Supabase:", err);
+  }
+}
+
+// Iniciar descarga en segundo plano desde el primer segundo
+cargarCartasDesdeSupabase();
 
 /** Devuelve la clave del día de hoy en formato "YYYY-MM-DD" */
 function getTodayKey() {
@@ -286,7 +328,7 @@ function mostrarCartaHoy() {
 }
 
 /** Renderiza la carta del día actual */
-function renderCartaDia() {
+async function renderCartaDia() {
   const todayKey = getTodayKey();
 
   // Mostrar fecha en el header
@@ -297,6 +339,11 @@ function renderCartaDia() {
 
   mostrarCartaHoy();
   renderCartaHistory(todayKey);
+
+  // Si aún no se cargaron de Supabase al abrir el modal, esperamos la respuesta
+  if (!cartasCargadas) {
+    await cargarCartasDesdeSupabase();
+  }
 }
 
 /** Renderiza el historial de cartas anteriores */
