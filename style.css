@@ -499,6 +499,7 @@ body {
   border: none;
   border-radius: var(--radius-btn);
   color: #fff;
+  text-decoration: none;
   font-family: var(--font-sans);
   font-size: 0.95rem;
   font-weight: 500;
