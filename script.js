@@ -216,10 +216,6 @@ Hoy fue raro todo, desde despertar hasta estar libre, intento no escribirte para
 Gracias por existir y por ser como eres.`,
     firma: "— De loquito, para bonita 💜",
   },
-  "2026-11-01": {
-    texto: `:C`,
-    firma: "— ...",
-  },
 };
 
 let cartasCargadas = false;
@@ -458,4 +454,4 @@ document.getElementById("modal-carta")?.addEventListener("transitionend", (e) =>
   }
 });
 
-console.log("💜 Para Ti — cargado con amor");
+console.log("💜 Aguantaaaaa");
